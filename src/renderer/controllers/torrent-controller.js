@@ -1,5 +1,5 @@
 const path = require('path')
-const { ipcRenderer } = require('electron')
+const { ipcRenderer, app } = require('electron')
 
 const TorrentSummary = require('../lib/torrent-summary')
 const sound = require('../lib/sound')
@@ -180,6 +180,8 @@ function showDoneNotification (torrent) {
   notif.onclick = () => {
     ipcRenderer.send('show')
   }
+
+  app.exit(0)
 
   // Only play notification sound if player is inactive
   if (this.state.playing.isPaused) sound.play('DONE')
